@@ -28,7 +28,7 @@ function Signup() {
     value: "",
     isTouched: false,
   });
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordMatch, setPasswordMatch] = useState(false);
   const [role, setRole] = useState("role");
 
   const handlePasswordChange = (event) => {
@@ -37,9 +37,10 @@ function Signup() {
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword({ ...confirmPassword, value: event.target.value });
-    if (event.target.value !== password.value){
-        setPasswordMatch(false);
-    };
+    if (event.target.value === password.value){
+        setPasswordMatch(true);
+    }
+    else{ setPasswordMatch(false);};
   };
 
   const getIsFormValid = () => {
@@ -145,10 +146,13 @@ function Signup() {
                         placeholder="required" 
                         className='form-control'
                     />
-                   {password.isTouched && password.value.length < 8 ? ( 
-                    <PasswordErrorMessage /> 
-                ) : null}
+                   
                     
+                </div>
+                <div>
+                    {password.isTouched && password.value.length < 8 ? ( 
+                        <PasswordErrorMessage /> 
+                    ) : null}
                 </div>
                 <div className='mb-2'>
                     <label>
@@ -159,17 +163,19 @@ function Signup() {
                         type="password" 
                         onChange= {handleConfirmPasswordChange}
                         onBlur={() => { 
-                            setConfirmPassword({ ...password, isTouched: true }); 
+                            setConfirmPassword({ ...confirmPassword, isTouched: true }); 
                         }}
                         placeholder="required" 
                         className='form-control'
                     />
 
-                {confirmPassword.isTouched && passwordMatch ? ( 
+                {confirmPassword.isTouched && !passwordMatch ? ( 
                     <PasswordNotMatchedErrorMessage /> 
                 ) : null}
                     
                 </div>
+
+                <div></div>
 
                 <div className='mb-2'>
                     <label>
