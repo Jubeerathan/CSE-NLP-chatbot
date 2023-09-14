@@ -96,11 +96,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE":  'django.db.backends.mysql',
-        "NAME": 'chatbotDb',
-        'HOST': os.getenv('HOST'),  # or the hostname where your MySQL server is running
+        "NAME": 'chatbotdb',
+        'HOST': 'localhost',  # or the hostname where your MySQL server is running
         'PORT': '3306', 
-        'USER':os.getenv('USER'),
-        'PASSWORD' :os.getenv('PASSWORD'),     # or the port on which your MySQL server is listening
+        'USER': 'root', 
+        'PASSWORD' : '',     # or the port on which your MySQL server is listening
     }
 }
 
