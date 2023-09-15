@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import './styles/style.css'
 import logo from './images/CSEBOT.png';
 import background from './images/sliot.png';
+import { addUser } from '../services/AthenticationServices';
 
 const PasswordErrorMessage = () => {
   return (
@@ -17,9 +18,18 @@ const PasswordNotMatchedErrorMessage = () => {
   };
 
 function Signup() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [userdetals,setuserdetails] = useState({
+    firstName : "",
+    lastName : "",
+    email : "",
+    pword : "",
+    confirmPword : "",
+    role : ""
+
+  })
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState({
     value: "",
     isTouched: false,
@@ -29,7 +39,7 @@ function Signup() {
     isTouched: false,
   });
   const [passwordMatch, setPasswordMatch] = useState(false);
-  const [role, setRole] = useState("role");
+  // const [role, setRole] = useState("role");
 
   const handlePasswordChange = (event) => {
     setPassword({ ...password, value: event.target.value });
@@ -45,18 +55,18 @@ function Signup() {
 
   const getIsFormValid = () => {
     return ( 
-        firstName && 
-        validateEmail(email) && 
+        userdetals.firstName && 
+        validateEmail(userdetals.email) && 
         password.value.length >= 8 && 
         passwordMatch &&
-        role !== "role" 
+        userdetals.role !== "role" 
       ); 
   };
 
   const clearForm = () => {
-    setFirstName(""); 
-   setLastName(""); 
-   setEmail(""); 
+  //   setFirstName(""); 
+  //  setLastName(""); 
+  //  setEmail(""); 
    setPassword({ 
     value: "", 
     isTouched: false, 
@@ -65,11 +75,13 @@ function Signup() {
     value: "", 
     isTouched: false, 
   }); 
-   setRole("role");
+  //  setRole("role");
   };
 
   const handleSubmit = (event) => {
-   event.preventDefault(); 
+   
+   event.preventDefault();
+   addUser({...userdetals,pword:password.value,confirmPword:confirmPassword.value});
    alert('Account created!');
    clearForm();
   };
@@ -98,9 +110,9 @@ function Signup() {
                     First name <sup style={{ color: 'red' }}>*</sup>
                     </label>
                     <input 
-                        value={firstName} 
+                        // value={firstName} 
                         onChange={(e) => { 
-                        setFirstName(e.target.value); 
+                        setuserdetails({...userdetals,firstName:e.target.value}); 
                         }} 
                         placeholder="First name"
                         className='form-control' 
@@ -111,9 +123,9 @@ function Signup() {
                         Last name
                     </label>
                     <input 
-                        value={lastName} 
+                        // value={lastName} 
                         onChange={(e) => { 
-                        setLastName(e.target.value); 
+                        setuserdetails({...userdetals,lastName:e.target.value}); 
                         }} 
                         placeholder="Last name" 
                         className='form-control'
@@ -124,9 +136,9 @@ function Signup() {
                         Email<sup style={{ color: 'red' }}>*</sup>
                     </label>
                     <input
-                        value={email} 
+                        // value={email} 
                         onChange={(e) => { 
-                        setEmail(e.target.value); 
+                        setuserdetails({...userdetals,email:e.target.value}); 
                         }} 
                         placeholder="Email address" 
                         className='form-control'
@@ -141,7 +153,7 @@ function Signup() {
                         type="password" 
                         onChange= {handlePasswordChange}
                         onBlur={() => { 
-                            setPassword({ ...password, isTouched: true }); 
+                            setPassword({...password,isTouched:true}); 
                         }}
                         placeholder="required" 
                         className='form-control'
@@ -181,7 +193,7 @@ function Signup() {
                     <label>
                     Role <sup style={{ color: 'red' }}>*</sup>
                     </label>
-                    <select value={role} onChange={(e) => setRole(e.target.value)} className='form-control'>
+                    <select onChange={(e) => setuserdetails({...userdetals,role:e.target.value})} className='form-control'>
                     <option value="role">Role</option>
                     <option value="undergraduate">Undergraduate</option>
                     <option value="postgraduate">Postgraduate</option>
