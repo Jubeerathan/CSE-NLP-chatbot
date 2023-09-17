@@ -7,7 +7,7 @@ const ChatInterface = () => {
 
   // user ID should be hardcoded here.
   
-  const user_id = 1;
+  const user_id = 2;
 
   let [topics, setTopics] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -198,7 +198,7 @@ const handleKeyDown = (event) => {
                           }}
                           onChange={(e) => setUserTopicInput(e.target.value)}
                         />
-                        <Button variant="primary" onClick={handleUserInputTopicSubmit}>
+                        <Button variant="primary" onClick={handleUserInputTopicSubmit} style={{ height: "40px", maxWidth: "60px"}}>
                           Add
                         </Button>
                       </Stack>
@@ -221,7 +221,7 @@ const handleKeyDown = (event) => {
                         }
                     </ListGroup>
                   </div>
-                  <div style={{ height: "20px" }}></div>
+                  <div style={{ height: "10px" }}></div>
                 </Col>
                 <Col md="8" lg="8" xl="8" style={{ position: "relative" }}>
                   <div className="chat-messages scrollbar" style={{ overflowY: "scroll", maxHeight: "75vh" }}>
@@ -230,7 +230,14 @@ const handleKeyDown = (event) => {
                             <ChatMessage key={index} message={message.message} sender={message.sender} />
                           ))
                         ) : (
-                          <div>Start new Conversation</div>
+                          <>
+                          <div style={{ height: "20px" , marginBottom: "5px"}}></div>
+                          <div className="d-flex justify-content-center align-items-center">
+                            <div>
+                              Start new Conversation
+                            </div>
+                          </div>                                                  
+                          </>
                         )}
                     <div ref={messagesEndRef}></div>
                   </div>
@@ -245,7 +252,7 @@ const handleKeyDown = (event) => {
                         onKeyDown={handleKeyDown} // Attach the event listener here
                         onChange={(e) => setUserInput(e.target.value)}
                       />
-                      <Button variant="primary" onClick={handleUserInputSubmit}>
+                      <Button variant="primary" onClick={handleUserInputSubmit} style={{ height: "40px", maxWidth: "100px" }}>
                         Submit
                       </Button>
                     </Stack>

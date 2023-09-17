@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'authentication',
     'users',
     'database',
-    'adminPanel'
+    'adminPanel',
+    'chat'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -96,14 +97,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE":  'django.db.backends.mysql',
-        "NAME": 'chatbotdb',
-        'HOST': 'localhost',  # or the hostname where your MySQL server is running
+        "NAME": os.getenv('NAME'),
+        'HOST': os.getenv('HOST'),  # or the hostname where your MySQL server is running
         'PORT': '3306', 
-        'USER': 'root', 
-        'PASSWORD' : '',     # or the port on which your MySQL server is listening
+        'USER':os.getenv('USER'),
+        'PASSWORD' :os.getenv('PASSWORD'),      # or the port on which your MySQL server is listening
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
