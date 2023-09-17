@@ -97,7 +97,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE":  'django.db.backends.mysql',
-        "NAME": os.getenv('NAME'),
+        "NAME": 'chatbotdb',
         'HOST': os.getenv('HOST'),  # or the hostname where your MySQL server is running
         'PORT': '3306', 
         'USER':os.getenv('USER'),
