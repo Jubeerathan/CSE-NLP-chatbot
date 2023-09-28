@@ -8,7 +8,7 @@
 }
 
 :root {
-	--mainColor: #0c0436;
+	--mainColor:rgba(0,0,46) ;
 	--mainColorLight: #5767aa;
 	--secondaryColor: #06bdf4;
 	--textColor: #eee;
@@ -49,7 +49,7 @@ header .nav-btn {
 header div,
 nav {
 	display: flex;
-	align-items: center;
+	align-items:center;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -66,8 +66,8 @@ nav {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		align-items:center;
+		justify-content:center;
 		gap: 1.5rem;
 		background-color: var(--mainColor);
 		transition: 1s;

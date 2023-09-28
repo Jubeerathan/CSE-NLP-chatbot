@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { validateEmail } from './utils';
 import './styles/style.css';
@@ -7,6 +7,7 @@ import logo from './images/CSEBOT.png';
 import background from './images/dep.png'; 
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -19,14 +20,15 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/login', {
+      const response = await axios.post('http://127.0.0.1:8000/login/', {
         email,
         password,
       });
-
-      if (response.data.success) {
+      console.log(response.data)
+      if (response.data) {
         setMessage('Login successful!');
         alert('Logged In!');
+        navigate('../editprofile');
       } else {
         setMessage('Invalid email or password.');
       }
@@ -94,9 +96,9 @@ const Login = () => {
             </button>
           </div>
           <p className='text-start mt-2'>
-            Forgot <a href=''>Password?</a>
+            Don't have an account?
             <Link to='/signup' className='ms-2'>
-              Sign up
+              Sign Up Here
             </Link>
           </p>
         </form>

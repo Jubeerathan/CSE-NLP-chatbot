@@ -17,7 +17,6 @@ import axios from 'axios';
 // }
 
 export function addUser(user){
-    console.log(user)
     axios.post('http://127.0.0.1:8000/signup/',user)
     .then((response) => {
         console.log(response.data)
@@ -25,15 +24,6 @@ export function addUser(user){
     .catch((error) => {
         console.log(error)
     })
-//   return axios.post('http://127.0.0.1:8000/', {
-//     first_name:user.firstname.value,
-//     last_name:user.lastname.value,
-//     email:user.email.value,
-//     password1:user.password.value,
-//     password2:user.confirmPassword.value,
-//     user_type:user.role
-//   })
-//     .then(response=>response.data)
 }
 
 // export function updateStudent(stuid, student) {

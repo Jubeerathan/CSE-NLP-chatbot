@@ -14,7 +14,7 @@ function NavBar() {
 
 	return (
 		<header>
-			<div style={{ display: "flex", alignItems: "center" }}>
+			<div style={{ display: "flex", alignItems:'center'}}>
         <a className="navbar-brand" href="/">
           <img
             style={{
@@ -36,10 +36,10 @@ function NavBar() {
         <h3 style={{ color: "white", marginTop: "2px",marginLeft: "10px" }}>CSEBOT</h3>
       </div>
 			<nav ref={navRef}>
-				<a href="/#">Home</a>
-				<a href="/login" style={{}}>LogIn</a>
+				
+				<a href="/login">LogIn</a>
 				<a href="/signup">SignUp</a>
-				<a href="/#">AboutUs</a>
+
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>
@@ -56,3 +56,4 @@ function NavBar() {
 }
 
 export default NavBar;
+
