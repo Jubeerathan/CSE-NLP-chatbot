@@ -5,15 +5,16 @@ import Navigation from "./components/Navigation";
 import Knowledgebase from "./components/Knowledgebase";
 import ChatInterface from "./components/ChatInterface";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ChatPage from "./components/ChatPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element = {<ChatInterface/>}/>
+        {/* <Route path="/" element={<ChatInterface/>} /> */}
+        <Route path="/" element={<ChatPage />} />
       </Routes>
     </BrowserRouter>
-
 
     // <BrowserRouter>
     //   <Navigation />
