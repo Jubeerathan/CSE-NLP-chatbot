@@ -1,11 +1,10 @@
-import React from "react";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-function VoiceInput() {
+const VoiceInput = ({ setUserInput }) => {
   // Pass the recognition object to the useSpeechRecognition hook
   const {
     transcript,
@@ -13,8 +12,27 @@ function VoiceInput() {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+
+  useEffect(() => {
+    // Update userInput when a new transcript is received
+    if (transcript !== "") {
+      setUserInput(transcript);
+    }
+  }, [transcript, setUserInput]);
+
   const startListening = () =>
     SpeechRecognition.startListening({ continuous: true });
+
+  const [isMicrophoneActive, setIsMicrophoneActive] = useState(false);
+
+  const toggleMicrophone = () => {
+    if (!isMicrophoneActive) {
+      startListening({ language: "en-US" });
+    } else {
+      SpeechRecognition.stopListening();
+    }
+    setIsMicrophoneActive(!isMicrophoneActive);
+  };
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -22,15 +40,14 @@ function VoiceInput() {
 
   return (
     <div>
-      <p>Microphone: {listening ? "on" : "off"}</p>
-      <button onClick={() => startListening({ language: "en-US" })}>
-        Start
+      {/* <p>Microphone: {listening ? "on" : "off"}</p> */}
+      <button onClick={toggleMicrophone}>
+        {isMicrophoneActive ? "Stop" : "Start"}
       </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
+      {/* <p>{transcript}</p> */}
     </div>
   );
-}
+};
 
 export default VoiceInput;

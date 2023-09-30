@@ -21,6 +21,7 @@ import ChatMessage from "./ChatMessage";
 import uom_logo from "../assets/uom_logo.png";
 import cse_logo from "../assets/cse_logo.png";
 import ChatHeader from "./ChatHeader";
+import VoiceInput from "./VoiceInput";
 
 const ChatInterface = () => {
   // user ID should be hardcoded here.
@@ -316,6 +317,7 @@ const ChatInterface = () => {
                       >
                         Submit
                       </Button>
+                      <VoiceInput setUserInput={setUserInput} />
                     </Stack>
                   </div>
                 </Col>

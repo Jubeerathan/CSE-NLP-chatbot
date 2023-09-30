@@ -6,6 +6,7 @@ import Knowledgebase from "./components/Knowledgebase";
 import ChatInterface from "./components/ChatInterface";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChatPage from "./components/ChatPage";
+import VoiceInput from "./components/VoiceInput";
 
 function App() {
   return (
