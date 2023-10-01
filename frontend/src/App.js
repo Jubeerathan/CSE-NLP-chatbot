@@ -7,15 +7,19 @@ import ChatInterface from "./components/ChatInterface";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChatPage from "./components/ChatPage";
 import VoiceInput from "./components/VoiceInput";
+import UserFeedback from "./components/UserFeedback";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<ChatInterface/>} /> */}
-        <Route path="/" element={<ChatPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <UserFeedback />
+    </div>
+    // <BrowserRouter>
+    //   <Routes>
+    //     {/* <Route path="/" element={<ChatInterface/>} /> */}
+    //     <Route path="/" element={<ChatPage />} />
+    //   </Routes>
+    // </BrowserRouter>
 
     // <BrowserRouter>
     //   <Navigation />
