@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ChatTitleSerializer,ChatConversationSerializer,ChatRealTimeSerializer
+from .serializers import ChatTitleSerializer, ChatConversationSerializer, ChatRealTimeSerializer, UserFeedbackSerializer
 from django.http.response import JsonResponse
 from django.http.response import Http404
 from rest_framework import status 
@@ -59,6 +59,23 @@ def real_time_chat(request,user_ID):
         if form.is_valid():
             form.save()
             return Response(modified_data['answer'], status=status.HTTP_201_CREATED)
+        else:
+            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response('Invalid HTTP method !.', status=status.HTTP_400_BAD_REQUEST)
+    
+# Receiving feedbacks from feedbackpage
+@api_view(['POST'])
+def user_feedback(request,user_ID):
+    if request.method == 'POST':
+        # data = JSONParser().parse(request)
+        modified_data = request.data
+        modified_data['user'] = user_ID
+        # modified_data['answer'] = response_by_bot(modified_data['question'])
+        form = UserFeedbackSerializer(data=modified_data)
+        if form.is_valid():
+            form.save()
+            return Response("Your feedback has been successfully submitted", status=status.HTTP_201_CREATED)
         else:
             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
     else:

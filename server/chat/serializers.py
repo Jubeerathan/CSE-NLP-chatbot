@@ -1,7 +1,7 @@
 # What should be sent.
 
 from rest_framework import serializers
-from database.models import ChatHistory
+from database.models import ChatHistory,Feedback
 
 class ChatTitleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +20,7 @@ class ChatConversationSerializer(serializers.ModelSerializer):
                     'question',
                     'answer'
                     )
+        
 class ChatRealTimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatHistory
@@ -29,6 +30,16 @@ class ChatRealTimeSerializer(serializers.ModelSerializer):
                     'conversation_title',
                     'question',
                     'answer'
+                    )
+        
+class UserFeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ( 'user',
+                    'feedback_id',
+                    'feedback_type',
+                    'feedback_details'
+                    
                     )
         
 # class ChatConversationSerializer(serializers.ModelSerializer):
