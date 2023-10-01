@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   Nav,
   Navbar,
@@ -8,16 +9,24 @@ import {
   Row,
   Col,
   Figure,
+  Offcanvas,
 } from "react-bootstrap";
 // import "./header.css";
 import uom_logo from "../assets/uom_logo.png";
 import cse_logo from "../assets/cse_logo.png";
 import user from "../assets/user.svg";
+import UserFeedback from "./UserFeedback";
 
 // "#252830"
 
 function ChatHeader() {
   let userName = "user2";
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -79,7 +88,7 @@ function ChatHeader() {
             className="p-3 w-100 rounded-3 shadow-sm bg-white"
             id="responsive-navbar-nav"
             style={{
-              zIndex: 9999,
+              zIndex: 99,
             }}
           >
             <Nav
@@ -96,6 +105,7 @@ function ChatHeader() {
                 variant="outline-dark"
                 href="#Feedbacks"
                 style={{ margin: "5px" }}
+                onClick={handleShow}
               >
                 Feedbacks
               </Button>
@@ -113,6 +123,20 @@ function ChatHeader() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        placement="end"
+        backdrop="static"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Feedback Form</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          We kindly appreciate your valuabale feedbacks.
+          <UserFeedback />
+        </Offcanvas.Body>
+      </Offcanvas>
     </div>
   );
 }

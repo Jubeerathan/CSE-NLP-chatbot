@@ -11,15 +11,18 @@ import UserFeedback from "./components/UserFeedback";
 
 function App() {
   return (
-    <div>
-      <UserFeedback />
-    </div>
-    // <BrowserRouter>
-    //   <Routes>
-    //     {/* <Route path="/" element={<ChatInterface/>} /> */}
-    //     <Route path="/" element={<ChatPage />} />
-    //   </Routes>
-    // </BrowserRouter>
+    // router for UserFeedBack
+    // <div>
+    //   <UserFeedback />
+    // </div>
+
+    // Route fro Chatpage
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={<ChatInterface/>} /> */}
+        <Route path="/" element={<ChatPage />} />
+      </Routes>
+    </BrowserRouter>
 
     // <BrowserRouter>
     //   <Navigation />

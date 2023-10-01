@@ -1,7 +1,7 @@
 import react from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { submit_feedback } from "../services/ChatServices";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import { Form, Button, Col, Row, Alert } from "react-bootstrap";
 import "./UserFeedback.css";
 
 function UserFeedback() {
@@ -9,6 +9,8 @@ function UserFeedback() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rating, setRating] = useState(""); // To store the selected option
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null); // To store the API response
 
   const user_id = 1;
 
@@ -28,6 +30,8 @@ function UserFeedback() {
 
     submit_feedback(user_id, postObject).then((data) => {
       console.log(data);
+      setSubmitSuccess(true);
+      setApiResponse(data); // Store the API response
 
       // Clear the form fields
       setFeedback("");
@@ -46,39 +50,34 @@ function UserFeedback() {
   //   submit_feedback(user_id, postObject).then((data) => console.log(data));
 
   return (
-    <div className="mt-1 m-5">
-      <h2>Feedback Form</h2>
+    <div className="m-1">
+      {/* <h2>Feedback Form</h2> */}
       <Form onSubmit={handleSubmit}>
-        <Row className="mt-2 mb-4">
-          <Col>
-            <Form.Group controlId="name">
-              <Form.Label>Your Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="custom-input" // Apply custom CSS class
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="custom-input" // Apply custom CSS class
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+        <Form.Group controlId="name" className="mt-2 mb-3">
+          <Form.Label>Your Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="custom-input" // Apply custom CSS class
+          />
+        </Form.Group>
 
-        <Form.Group controlId="rating" className="mt-3 mb-4 custom-input">
+        <Form.Group controlId="email" className="mt-2 mb-3">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="custom-input" // Apply custom CSS class
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="rating" className="mt-2 mb-3">
           <Form.Label>Rating</Form.Label>
           <Form.Check
             type="radio"
@@ -98,10 +97,11 @@ function UserFeedback() {
             value="Performance"
             checked={rating === "Performance"}
             onChange={() => setRating("Performance")}
+            required
           />
         </Form.Group>
 
-        <Form.Group controlId="feedback" className="mt-2 mb-4">
+        <Form.Group controlId="feedback" className="mt-2 mb-2">
           <Form.Label>Briefly explain your Thoughts</Form.Label>
           <Form.Control
             as="textarea"
@@ -110,6 +110,7 @@ function UserFeedback() {
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             className="custom-input" // Apply custom CSS class
+            required
           />
         </Form.Group>
 
@@ -117,6 +118,18 @@ function UserFeedback() {
           Submit Feedback
         </Button>
       </Form>
+      {submitSuccess && apiResponse !== null && (
+        // <div className="mt-3 success-message">{apiResponse}</div>
+        <Alert variant="success" className="mt-2">
+          <Alert.Heading>{apiResponse}</Alert.Heading>
+          <p>Thank you for your valuabale feedback.</p>
+          <hr />
+          <p className="mb-0">
+            If you want to submit futher response, kindly submit that also. Or,
+            You can close the Feedback pop up.
+          </p>
+        </Alert>
+      )}
     </div>
   );
 }
