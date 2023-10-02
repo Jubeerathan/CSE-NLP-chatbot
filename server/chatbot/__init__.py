@@ -15,7 +15,7 @@ load_dotenv()
 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-loader = TextLoader(r"CSE-NLP-chatbot\\server\\chatbot\\UG.txt", encoding = 'UTF-8')
+loader = TextLoader(r"https://github.com/CSE-NLP-Chatbot/CSE-NLP-chatbot/blob/5062e6bd27b078a4b14e38d02e55749ca9b9b40b/server/chatbot/UG.txt", encoding = 'UTF-8')
 data = loader.load()
 text_splitter = CharacterTextSplitter(separator='\n',
                                       chunk_size=1000,
