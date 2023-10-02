@@ -8,6 +8,7 @@ on:
 
 env:
   DB_NAME: chatbotDb
+  OPENAI_API_KEY: some_key_value
 
 jobs:
   build:
