@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('adminPanel.urls')),
     path('', include('authentication.urls')),
     path('', include('chat.urls'))
+     path('', include('chatbot.urls')),
 ]
