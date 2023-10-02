@@ -15,7 +15,7 @@ load_dotenv()
 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-loader = TextLoader(r"D:\Code Playground\SEP\chatbot\server\chatbot\UG.txt")
+loader = TextLoader(r"server\chatbot\UG.txt")
 data = loader.load()
 text_splitter = CharacterTextSplitter(separator='\n',
                                       chunk_size=1000,
