@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -7,4 +7,6 @@ urlpatterns = [
     path("activate/<uidb64>/<token>/", views.activate, name="activate"),
     path("login/", views.signin, name="login"),
     path("signout/", views.signout, name="signout"),
+    path("editprofile/", views.editprofile, name="editprofile"),
+    path("changepassword/", views.changepassword, name="changepassword"),
 ]

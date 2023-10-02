@@ -18,15 +18,14 @@ const SubAPP = () => {
   const location = useLocation();
 
   // Conditionally render the NavBar based on the current route
-  const shouldShowNavBar1 = location.pathname !== '/'
-  // const shouldShowNavBar1 = location.pathname !== '/' && (location.pathname === 'signup' || location.pathname === 'login' || location.pathname === 'mailsuccess');
-  // const shouldShowNavBar2 = location.pathname !== '/' && (location.pathname === 'changepassword' && location.pathname === 'editprofile');
+  const shouldShowNavBar1 = location.pathname !== '/' && location.pathname !== '/changepassword' && location.pathname !== '/editprofile'&& location.pathname !== '/profile';
+  const shouldShowNavBar2 = location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/login' && location.pathname !== '/mailsuccess';
   const shouldShowFooter = location.pathname !== '/';
 
   return (
     <div className='App'>
       {shouldShowNavBar1 && <NavBar /> } 
-      {/* {shouldShowNavBar2 && <NavBar2 />} */}
+      {shouldShowNavBar2 && <NavBar2 />}
       <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route exact path="mailsuccess" element={<MailSuccess />} />
@@ -34,6 +33,7 @@ const SubAPP = () => {
         <Route exact path="login" element={<Login />} />
         {/* <Route exact path="chatbot" element={<Login />} /> */}
         <Route exact path="changepassword" element={<ChangePassword />} />
+        {/* <Route exact path="/editprofile/:Email" element={<EditProfile />} />  */}
         <Route exact path="editprofile" element={<EditProfile />} /> 
       </Routes>
       {shouldShowFooter && <Footer />}

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 // export function getStudents() {
 //   return axios.get('http://127.0.0.1:8000/students/')
@@ -17,9 +19,10 @@ import axios from 'axios';
 // }
 
 export function addUser(user){
+
     axios.post('http://127.0.0.1:8000/signup/',user)
     .then((response) => {
-        console.log(response.data)
+        
     })
     .catch((error) => {
         console.log(error)

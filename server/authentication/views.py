@@ -16,6 +16,9 @@ from users.models import CustomUser
 from backend import settings
 from . tokens import generate_token
 from django.utils.html import strip_tags
+from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 
@@ -30,10 +33,13 @@ def signup(request):
        
 
         if CustomUser.objects.filter(email=email).exists():
-            return JsonResponse("Email Already Registered!!", safe=False)
+            return JsonResponse("Email Already Registered", safe=False)
 
         if password1 != password2:
-            return JsonResponse("Passwords didn't matched!!", safe=False)
+            return JsonResponse("Passwords didn't matched", safe=False)
+        
+        if len(password1) < 8:
+            return JsonResponse("Password is too short", safe=False)
         
         myuser = CustomUser.objects.create_user(email, password1)
         myuser.username = username
@@ -59,7 +65,7 @@ def signup(request):
         email.fail_silently = True
         email.send()
         return JsonResponse(
-            "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.",
+            "Your Account has been created succesfully",
             safe=False,
         )
 
@@ -85,7 +91,8 @@ def activate(request,uidb64,token):
         myuser.is_active = True
         myuser.save()
         login(request,myuser)
-        return JsonResponse("Your Account has been activated!!", safe =False,)
+
+        return render(request,'activated_successfully.html')
      
     else:
         return render(request,'activation_failed.html')
@@ -99,12 +106,22 @@ def signin(request):
 
         user = custom_authenticate(email=email, password=password1)
         if user == 'NA':
-            return Response({"error": "User account is not activated."},status=401)
+            return JsonResponse({"error": "User account is not activated."},safe=False)
         if user is not None:
             login(request, user)
-            return JsonResponse(True, safe=False)
+        
+            if user.login_times == 0:
+                user.login_times +=1
+                user.save()
+                
+                return JsonResponse({'message':"First login", 'email':user.email}, safe=False)
+            else:
+                user.login_times +=1
+                user.save()
+                return JsonResponse({'message':"login", 'email':user.email}, safe=False)
+            
         else:
-           return Response({"error": "Bad Credintials"},status=404)
+           return JsonResponse({"error": "Bad Credintials"},safe=False)
 
 
 @api_view(("GET",))
@@ -112,3 +129,60 @@ def signout(request):
     if request.method == "GET":
         logout(request)
         return JsonResponse("Logged Out Sucessfully!!", safe=False)
+    
+    
+@api_view(("PUT",))
+def editprofile(request):
+    if request.method == "PUT":
+        firstname = request.data.get("firstname")
+        lastname = request.data.get("lastname")
+        role = request.data.get("role")
+        aboutu = request.data.get("aboutu")
+        email = request.data.get("email")
+        avatar = request.data.get("avatar")
+        
+        user = CustomUser.objects.get(email=email)
+
+        
+        user.first_name=firstname 
+        user.last_name=lastname
+        user.user_type=role
+        user.about_you=aboutu
+        user.profile_pic=avatar
+
+        print( type(user.profile_pic))
+       
+        user.save()
+
+        return JsonResponse("Information saved Sucessfully!!", safe=False)
+
+
+@api_view(("PUT",))
+def changepassword(request):
+    if request.method == "PUT":
+        currentPassword = request.data.get("currentPassword")
+        newPassword = request.data.get("newPassword")
+        confirmNewPassword = request.data.get("confirmNewPassword")
+        email = request.data.get("email")
+        
+
+        if newPassword != confirmNewPassword:
+            return JsonResponse("Passwords didn't matched", safe=False)
+        
+        if len(newPassword) < 8:
+            return JsonResponse("Password is too short", safe=False)
+        
+        user = custom_authenticate(email=email, password=currentPassword)
+
+        if user is not None:
+            user.password= newPassword
+            user.save()
+            return JsonResponse("password changed successfully", safe=False)
+
+        else:
+           return JsonResponse("Bad Credintials",safe=False)
+                       
+            
+        
+
+        

@@ -31,14 +31,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     user_ID = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
-    username = models.CharField(unique=True,max_length=50,null=True)
+    username = models.CharField(max_length=50,null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     account_create_date = models.DateTimeField(default=timezone.now)
     user_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='undergraduate')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    profile_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(upload_to= 'images/',null=True)
+    login_times=models.IntegerField(default=0)
+    about_you=models.CharField(max_length=500,null=True)
 
     objects = CustomUserManager()
 
