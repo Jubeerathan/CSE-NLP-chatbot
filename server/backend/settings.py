@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'database',
     'adminPanel',
     'chatbot',
-    'chat'
+    'chat',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -100,18 +100,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
     "default": {
-        "ENGINE": 'django.db.backends.postgresql_psycopg2',
-        "NAME": os.getenv('DB_NAME'),
-        'HOST': os.getenv('HOST'), # or the hostname where your MySQL server is running
-        'PORT': '5432',
-        'USER':os.getenv('USER'),
-        'PASSWORD' :os.getenv('PASSWORD'), 
-        # "ENGINE": 'django.db.backends.mysql',
+        # "ENGINE": 'django.db.backends.postgresql_psycopg2',
         # "NAME": os.getenv('DB_NAME'),
-        # 'HOST': 'localhost', # or the hostname where your MySQL server is running
-        # 'PORT': '3306',
+        # 'HOST': os.getenv('HOST'), # or the hostname where your MySQL server is running
+        # 'PORT': '5432',
         # 'USER':os.getenv('USER'),
-        # 'PASSWORD' :os.getenv('PASSWORD'),     # or the port on which your MySQL server is listening
+        # 'PASSWORD' :os.getenv('PASSWORD'), 
+        "ENGINE": 'django.db.backends.mysql',
+        "NAME": os.getenv('DB_NAME'),
+        'HOST': 'localhost', # or the hostname where your MySQL server is running
+        'PORT': '3306',
+        'USER':os.getenv('USER'),
+        'PASSWORD' :os.getenv('PASSWORD'),     # or the port on which your MySQL server is listening
     }
 }
 
