@@ -10,6 +10,14 @@ from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.parsers import JSONParser
 
+from django.http import JsonResponse
+import requests
+
+import os
+from dotenv import load_dotenv
+
+# import jwt
+
 
 # Create your views here.
 # Getting conversation titles.
@@ -80,3 +88,37 @@ def user_feedback(request,user_ID):
             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response('Invalid HTTP method !.', status=status.HTTP_400_BAD_REQUEST)
+
+
+# subscription key and region
+subscription_key = os.getenv("SUBSCRIPTION_KEY")    # Azure subscription key
+region = os.getenv("REGION")
+
+# Secret key for signing the JWT
+# secret_key = 'YOUR_SECRET_KEY'
+
+# The token endpoint URL
+token_url = f"https://{region}.api.cognitive.microsoft.com/sts/v1.0/issueToken"
+
+
+def generate_azure_token(request):
+
+    # Send a POST request to the Azure token URL to get the token
+    headers = {
+        'Ocp-Apim-Subscription-Key': subscription_key
+    }
+    response = requests.post(token_url, headers=headers)
+
+    if response.status_code == 200:
+        # Get the token from the response
+        token = response.text
+
+        # may add additional claims to the JWT if necesary
+        jwt_payload = {}
+
+        # Encode the token as a JWT 
+        # encoded_token = jwt.encode(jwt_payload, secret_key, algorithm='HS256')
+
+        return JsonResponse({'token': token})
+    else:
+        return JsonResponse({'error': 'Failed to generate Azure token'}, status=500)
