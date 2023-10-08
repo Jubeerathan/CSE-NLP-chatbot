@@ -1,3 +1,4 @@
+// VoiceInput.js
 import React from "react";
 import { useEffect, useState } from "react";
 import createSpeechServicesPonyfill from "web-speech-cognitive-services";
@@ -59,7 +60,7 @@ const VoiceInput = ({ userInput, setUserInput }) => {
   };
 
   if (!browserSupportsSpeechRecognition) {
-    return null;
+    return <div>Speech recognition is not supported.</div>;
   }
 
   return (

@@ -90,6 +90,7 @@ def user_feedback(request,user_ID):
         return Response('Invalid HTTP method !.', status=status.HTTP_400_BAD_REQUEST)
 
 
+# azure voice token generater to STT
 # subscription key and region
 subscription_key = os.getenv("SUBSCRIPTION_KEY")    # Azure subscription key
 region = os.getenv("REGION")
