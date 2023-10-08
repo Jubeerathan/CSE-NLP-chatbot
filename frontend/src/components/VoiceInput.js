@@ -1,49 +1,69 @@
-import React, { useState, useEffect } from "react";
-import "regenerator-runtime/runtime";
+import React from "react";
+import { useEffect, useState } from "react";
+import createSpeechServicesPonyfill from "web-speech-cognitive-services";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import axios from "axios";
 import mic_on from "../assets/mic_on_icon.svg";
 import mic_off from "../assets/mic_off_icon.svg";
 
 const VoiceInput = ({ userInput, setUserInput }) => {
-  // Pass the recognition object to the useSpeechRecognition hook
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+  const [isMicrophoneActive, setIsMicrophoneActive] = useState(false);
+  const [azureToken, setAzureToken] = useState("");
+
+  useEffect(() => {
+    // Fetch the Azure Cognitive Services token from backend
+    axios
+      .get("/geraente_azure_token/")
+      .then((response) => {
+        setAzureToken(response.data.token);
+
+        const { SpeechRecognition: AzureSpeechRecognition } =
+          createSpeechServicesPonyfill({
+            credentials: {
+              authorizationToken: azureToken,
+            },
+          });
+
+        SpeechRecognition.applyPolyfill(AzureSpeechRecognition);
+      })
+      .catch((error) => {
+        console.error("Error fetching Azure token:", error);
+      });
+  }, [azureToken]);
+
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
 
   useEffect(() => {
     // Update userInput when a new transcript is received
     if (transcript !== "") {
-      setUserInput((prevUserInput) => prevUserInput + ` ${transcript}`);
-      resetTranscript();
+      setUserInput(transcript);
     }
   }, [transcript, setUserInput]);
 
   const startListening = () =>
-    SpeechRecognition.startListening({ continuous: true });
-
-  const [isMicrophoneActive, setIsMicrophoneActive] = useState(false);
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: "en-US",
+    });
 
   const toggleMicrophone = () => {
     if (!isMicrophoneActive) {
-      startListening({ language: "en-US" });
+      startListening();
     } else {
-      SpeechRecognition.stopListening();
+      SpeechRecognition.abortListening();
     }
     setIsMicrophoneActive(!isMicrophoneActive);
   };
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return null;
   }
 
   return (
     <div>
-      {/* <p>Microphone: {listening ? "on" : "off"}</p> */}
       <button onClick={toggleMicrophone}>
         {isMicrophoneActive ? (
           <img
@@ -59,8 +79,6 @@ const VoiceInput = ({ userInput, setUserInput }) => {
           />
         )}
       </button>
-      {/* <button onClick={resetTranscript}>Reset</button> */}
-      {/* <p>{transcript}</p> */}
     </div>
   );
 };
