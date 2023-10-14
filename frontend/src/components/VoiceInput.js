@@ -13,10 +13,13 @@ const VoiceInput = ({ userInput, setUserInput }) => {
   const [isMicrophoneActive, setIsMicrophoneActive] = useState(false);
   const [azureToken, setAzureToken] = useState("");
 
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
+
   useEffect(() => {
     // Fetch the Azure Cognitive Services token from backend
     axios
-      .get("/geraente_azure_token/")
+      .get("/generate_azure_token/")
       .then((response) => {
         setAzureToken(response.data.token);
 
@@ -33,9 +36,6 @@ const VoiceInput = ({ userInput, setUserInput }) => {
         console.error("Error fetching Azure token:", error);
       });
   }, [azureToken]);
-
-  const { transcript, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
 
   useEffect(() => {
     // Update userInput when a new transcript is received
@@ -68,12 +68,14 @@ const VoiceInput = ({ userInput, setUserInput }) => {
       <button onClick={toggleMicrophone}>
         {isMicrophoneActive ? (
           <img
+            data-testid="mic-off"
             src={mic_off}
             alt="mic_off"
             style={{ width: "30px", height: "100%" }}
           />
         ) : (
           <img
+            data-testid="mic-on"
             src={mic_on}
             alt="mic_on"
             style={{ width: "30px", height: "100%" }}
