@@ -8,15 +8,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChatPage from "./components/ChatPage";
 import VoiceInput from "./components/VoiceInput";
 import UserFeedback from "./components/UserFeedback";
+import Dictaphone from "./components/Dictaphone";
 
 function App() {
   return (
-    // router for UserFeedBack
+    // router for Dictaphone
     // <div>
-    //   <UserFeedback />
+    //   <Dictaphone />
+    //   {/* <VoiceInput /> */}
     // </div>
 
-    // Route fro Chatpage
+    // Route for  Chatpage
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<ChatInterface/>} /> */}
