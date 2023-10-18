@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate, login, logout
 from users.models import CustomUser
 from backend import settings
 from . tokens import generate_token
+import jwt,datetime
 
 
 # Create your views here.
@@ -104,9 +105,37 @@ def signin(request):
             return Response({"error": "User account is not activated."},status=401)
         if user is not None:
             login(request, user)
-            return JsonResponse("Logged In Sucessfully!!", safe=False)
+            payload={
+            'email':email,
+            'password':password1,
+            'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+            'iat':datetime.datetime.utcnow()
+            }
+            token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
+            res=Response()
+            res.data={ 
+                # 'jwt':token,
+                'message':'Logged in Successfully!!'
+            }
+            # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
+            res.set_cookie(key='jwt',value=token,httponly=True) 
+
+            # Set the JWT token as an HTTP-only cookie
+            # response.set_cookie(key='jwt', value=token, httponly=True)
+            # return respon
+            return res
         else:
            return Response({"error": "Bad Credintials"},status=404)
+
+@api_view(("GET",))
+def modaBanula(request):
+    token=request.COOKIES.get('jwt')
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY_JWT, algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+            return JsonResponse('Unauthenticated!')
+    user =  CustomUser.objects.filter(email=payload['email']).first()
+    return JsonResponse(user.email, safe=False) 
 
 
 @api_view(("GET",))

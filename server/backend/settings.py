@@ -34,6 +34,8 @@ EMAIL_PORT = os.getenv("EMAIL_PORT")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-#w9x!zoq*)l4h_8-g7c36q6v6j*=jc=v)&l%^0zub$f_m%$qu$"
 
+SECRET_KEY_JWT=os.getenv('SECRET_KEY_JWT')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 STATIC_URL = '/static/'
@@ -61,11 +63,13 @@ INSTALLED_APPS = [
     'adminPanel',
     'chatbot',
     'rest_framework_swagger',
+    'rest_framework_jwt',
     'drf_yasg',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 MIDDLEWARE = [
      'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
