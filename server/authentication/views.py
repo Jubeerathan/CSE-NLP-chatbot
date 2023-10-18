@@ -127,19 +127,11 @@ def signin(request):
         else:
            return Response({"error": "Bad Credintials"},status=404)
 
-@api_view(("GET",))
-def modaBanula(request):
-    token=request.COOKIES.get('jwt')
-    try:
-        payload = jwt.decode(token, settings.SECRET_KEY_JWT, algorithms=['HS256'])
-    except jwt.ExpiredSignatureError:
-            return JsonResponse('Unauthenticated!')
-    user =  CustomUser.objects.filter(email=payload['email']).first()
-    return JsonResponse(user.email, safe=False) 
-
 
 @api_view(("GET",))
 def signout(request):
     if request.method == "GET":
+        response=Response()
+        response.delete_cookie('jwt')
         logout(request)
         return JsonResponse("Logged Out Sucessfully!!", safe=False)
