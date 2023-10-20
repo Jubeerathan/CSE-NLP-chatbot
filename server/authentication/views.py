@@ -11,6 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from rest_framework.decorators import api_view, renderer_classes
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from users.models import CustomUser
 from backend import settings
@@ -22,6 +23,7 @@ import jwt,datetime
 
 
 @api_view(("POST",))
+@csrf_exempt
 def signup(request):
     if request.method == "POST":
         first_name = request.POST.get("firstname")
@@ -95,6 +97,7 @@ def activate(request,uidb64,token):
 
 
 @api_view(("POST",))
+@csrf_exempt
 def signin(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -119,19 +122,19 @@ def signin(request):
             }
             # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
             res.set_cookie(key='jwt',value=token,httponly=True) 
-
-            # Set the JWT token as an HTTP-only cookie
-            # response.set_cookie(key='jwt', value=token, httponly=True)
-            # return respon
             return res
         else:
            return Response({"error": "Bad Credintials"},status=404)
 
 
 @api_view(("GET",))
+@csrf_exempt
 def signout(request):
     if request.method == "GET":
         response=Response()
         response.delete_cookie('jwt')
+        response.data={
+            'message':'Logged out Successfully!!'
+        }
         logout(request)
-        return JsonResponse("Logged Out Sucessfully!!", safe=False)
+        return response
