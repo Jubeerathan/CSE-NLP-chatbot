@@ -11,16 +11,19 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str
 from rest_framework.decorators import api_view, renderer_classes
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from users.models import CustomUser
 from backend import settings
 from . tokens import generate_token
+import jwt,datetime
 
 
 # Create your views here.
 
 
 @api_view(("POST",))
+@csrf_exempt
 def signup(request):
     if request.method == "POST":
         first_name = request.POST.get("firstname")
@@ -94,6 +97,7 @@ def activate(request,uidb64,token):
 
 
 @api_view(("POST",))
+@csrf_exempt
 def signin(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -104,13 +108,33 @@ def signin(request):
             return Response({"error": "User account is not activated."},status=401)
         if user is not None:
             login(request, user)
-            return JsonResponse("Logged In Sucessfully!!", safe=False)
+            payload={
+            'email':email,
+            'password':password1,
+            'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+            'iat':datetime.datetime.utcnow()
+            }
+            token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
+            res=Response()
+            res.data={ 
+                # 'jwt':token,
+                'message':'Logged in Successfully!!'
+            }
+            # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
+            res.set_cookie(key='jwt',value=token,httponly=True) 
+            return res
         else:
            return Response({"error": "Bad Credintials"},status=404)
 
 
 @api_view(("GET",))
+@csrf_exempt
 def signout(request):
     if request.method == "GET":
+        response=Response()
+        response.delete_cookie('jwt')
+        response.data={
+            'message':'Logged out Successfully!!'
+        }
         logout(request)
-        return JsonResponse("Logged Out Sucessfully!!", safe=False)
+        return response
