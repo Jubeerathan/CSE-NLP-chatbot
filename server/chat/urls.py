@@ -8,5 +8,5 @@ urlpatterns = [
      path('chat/<int:user_ID>/return_conversation/', views.get_conversation_by_user_id, name='get_conversation_by_user_id'),
      path('chat/<int:user_ID>/real_time/', views.real_time_chat, name='real_time_chat'),
      path('user_feedback/<int:user_ID>/submit_feedback/', views.user_feedback, name='user_feedback'),
-     path('geraente_azure_token/', views.generate_azure_token, name='generate-azure-token'),
+     path('generate_azure_token/', views.generate_azure_token, name='generate-azure-token'),
 ]

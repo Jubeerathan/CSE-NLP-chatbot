@@ -8,7 +8,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChatPage from "./components/ChatPage";
 import VoiceInput from "./components/VoiceInput";
 import UserFeedback from "./components/UserFeedback";
-import Dictaphone from "./components/Dictaphone";
 
 function App() {
   return (
