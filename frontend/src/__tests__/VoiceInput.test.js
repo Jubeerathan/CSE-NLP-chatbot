@@ -61,7 +61,6 @@ describe("VoiceInput Component", () => {
   it("renders the component", async () => {
     await act(async () => {
       const { getByTestId } = render(<VoiceInput setUserInput={() => {}} />);
-      console.log(document.body.innerHTML);
       await waitFor(() => {
         expect(getByTestId("mic_on")).toBeInTheDocument();
       });
