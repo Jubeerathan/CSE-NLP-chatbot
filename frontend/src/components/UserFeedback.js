@@ -17,12 +17,6 @@ function UserFeedback() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // You can handle the form submission here, e.g., send the feedback to an API or perform any desired action.
-    console.log("Feedback:", feedback);
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Rating:", rating);
-
     const postObject = {
       feedback_type: rating,
       feedback_details: feedback,
@@ -51,9 +45,9 @@ function UserFeedback() {
 
   return (
     <div className="m-1">
-      {/* <h2>Feedback Form</h2> */}
+      <p></p>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="name" className="mt-2 mb-3">
+        {/* <Form.Group controlId="name" className="mt-2 mb-3">
           <Form.Label>Your Name</Form.Label>
           <Form.Control
             type="text"
@@ -75,7 +69,7 @@ function UserFeedback() {
             className="custom-input" // Apply custom CSS class
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group controlId="rating" className="mt-2 mb-3">
           <Form.Label>Rating</Form.Label>
