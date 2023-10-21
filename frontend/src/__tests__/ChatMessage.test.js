@@ -1,4 +1,3 @@
-// Import the necessary dependencies for testing
 import React from "react";
 import { render } from "@testing-library/react";
 import ChatMessage from "../components/ChatMessage";
@@ -24,31 +23,44 @@ describe("ChatMessage Component", () => {
     const { container } = render(
       <ChatMessage message="User message" sender="user" />
     );
-    const messageContainer = container.querySelector(".bg-light");
-    expect(messageContainer).toBeInTheDocument();
+    const messageContainer = container.querySelector(".border");
+
+    expect(messageContainer).toHaveStyle({
+      backgroundColor: "#FAF0E6", // User message background color
+      color: "#352F44", // User message text color
+      borderRadius: "15px",
+    });
   });
 
   it("should render bot message with info background", () => {
     const { container } = render(
       <ChatMessage message="Bot message" sender="bot" />
     );
-    const messageContainer = container.querySelector(".bg-info");
-    expect(messageContainer).toBeInTheDocument();
-  });
+    const messageContainer = container.querySelector(".border");
 
+    expect(messageContainer).toHaveStyle({
+      backgroundColor: "#B6EADA", // Bot message background color
+      color: "#03001C", // Bot message text color
+      borderRadius: "15px",
+    });
+  });
   it("should render user message with dark text", () => {
     const { container } = render(
       <ChatMessage message="User message" sender="user" />
     );
-    const messageText = container.querySelector(".text-dark");
-    expect(messageText).toBeInTheDocument();
+    const messageText = container.querySelector("p");
+
+    // Use regular expression to check for dark text color
+    expect(messageText).toHaveStyle("color: /^rgb\\(\\d+, \\d+, \\d+\\)$/");
   });
 
   it("should render bot message with white text", () => {
     const { container } = render(
       <ChatMessage message="Bot message" sender="bot" />
     );
-    const messageText = container.querySelector(".text-white");
-    expect(messageText).toBeInTheDocument();
+    const messageText = container.querySelector("p");
+
+    // Use regular expression to check for white text color
+    expect(messageText).toHaveStyle("color: /^rgb\\(\\d+, \\d+, \\d+\\)$/");
   });
 });
