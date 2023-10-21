@@ -7,11 +7,13 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import axios from "axios";
 import mic_on from "../assets/mic_on_icon.svg";
-import mic_off from "../assets/mic_off_icon.svg";
+// import mic_off from "../assets/mic_off_icon.svg";
+import mic_off from "../assets/sound_200.gif";
 
 const VoiceInput = ({ userInput, setUserInput }) => {
   const [isMicrophoneActive, setIsMicrophoneActive] = useState(false);
   const [azureToken, setAzureToken] = useState("");
+  const AZURE_REGION = "centralindia";
 
   const { transcript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -19,14 +21,15 @@ const VoiceInput = ({ userInput, setUserInput }) => {
   useEffect(() => {
     // Fetch the Azure Cognitive Services token from backend
     axios
-      .get("/generate_azure_token/")
+      .get("http://127.0.0.1:8000/generate_azure_token/")
       .then((response) => {
         setAzureToken(response.data.token);
 
         const { SpeechRecognition: AzureSpeechRecognition } =
           createSpeechServicesPonyfill({
             credentials: {
-              authorizationToken: azureToken,
+              region: AZURE_REGION,
+              authorizationToken: response.data.token,
             },
           });
 
@@ -35,7 +38,7 @@ const VoiceInput = ({ userInput, setUserInput }) => {
       .catch((error) => {
         console.error("Error fetching Azure token:", error);
       });
-  }, [azureToken]);
+  }, []);
 
   useEffect(() => {
     // Update userInput when a new transcript is received
