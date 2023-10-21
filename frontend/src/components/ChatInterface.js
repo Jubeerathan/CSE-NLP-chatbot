@@ -256,9 +256,10 @@ const ChatInterface = () => {
                         />
                         <Button
                           variant="primary"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent the default behavior of the button
                             if (userTopicInput.trim() !== "") {
-                              handleUserInputTopicSubmit();
+                              handleUserInputTopicSubmit(e); // Pass the event object to the handler
                             }
                           }}
                           style={{ height: "40px", maxWidth: "60px" }}
