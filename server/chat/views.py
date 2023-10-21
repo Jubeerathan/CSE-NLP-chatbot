@@ -9,20 +9,44 @@ from  database.models import ChatHistory
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.parsers import JSONParser
-
+import re
+import jwt
+from users.models import CustomUser
 from django.http import JsonResponse
 import requests
-
+from django.conf import settings
 import os
 from dotenv import load_dotenv
-
+from django.views.decorators.csrf import csrf_exempt
 # import jwt
 
 
 # Create your views here.
+
+
+@csrf_exempt
+@api_view(['GET'])
+def get_userID(request):
+    pattern =r"b'(.*)'"
+    if request.COOKIES.get('jwt'):
+        token = re.search(pattern,request.COOKIES.get('jwt'))
+    else:
+        return JsonResponse({"error": "You are not authorized to access this resource"}, status=401)
+    
+    if token:
+        try:
+            token = token.group(1)
+            payload = jwt.decode(token, settings.SECRET_KEY_JWT, algorithms=['HS256'])
+            user = CustomUser.objects.filter(email=payload['email']).first()
+            if user:
+                return JsonResponse({"user_id": user.user_ID, "user_type":user.user_type,}, status=200)
+        except jwt.exceptions.DecodeError:
+            return JsonResponse({"error": "You are not authorized to access this resource"}, status=401)
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({"error": "You are not authorized to access this resource"}, status=401)
+    return JsonResponse({"error": "You are not authorized to access this resource"}, status=401)    
+
 # Getting conversation titles.
-
-
 @api_view(['GET'])
 def get_conversation_title(request, user_ID ):
     if request.method=='GET': # can be removed.

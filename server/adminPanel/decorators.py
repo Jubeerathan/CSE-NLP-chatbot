@@ -1,7 +1,8 @@
 import jwt
 import re
-from django.conf import settings
+from backend import settings
 from django.http import JsonResponse
+from requests import Response
 from users.models import CustomUser
 
 def require_admin_permission(view_func):
