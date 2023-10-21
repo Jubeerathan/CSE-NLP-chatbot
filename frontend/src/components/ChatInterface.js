@@ -351,10 +351,11 @@ const ChatInterface = () => {
                       />
                       <Button
                         variant="primary"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.preventDefault();
                           if (userInput.trim() !== "") {
                             // Check for a non-empty input
-                            handleUserInputSubmit();
+                            handleUserInputSubmit(e);
                           }
                         }}
                         style={{ height: "40px", maxWidth: "100px" }}
