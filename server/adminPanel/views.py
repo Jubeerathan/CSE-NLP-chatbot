@@ -18,18 +18,7 @@ from .decorators import require_admin_permission
 
 # Create your views here.
 @require_admin_permission
-@api_view(("GET",))
-def modaBanula(request):
-    token=request.COOKIES.get('jwt')
-    try:
-        payload = jwt.decode(token, settings.SECRET_KEY_JWT, algorithms=['HS256'])
-    except jwt.ExpiredSignatureError:
-            return JsonResponse('Unauthenticated!')
-    user =  CustomUser.objects.filter(email=payload['email']).first()
-    return JsonResponse(user.email, safe=False) 
-
-@require_admin_permission
-@api_view(('GET','DELETE'))
+# @api_view(('GET','DELETE'))
 def get_feedback(request, feedback_id):
     if request.method=='GET':
         try:
@@ -51,7 +40,7 @@ def get_feedback(request, feedback_id):
 
          
 @api_view(('GET',))
-@require_admin_permission
+# @require_admin_permission
 def get_feedback_all(request):
     data = Feedback.objects.all()
     serializer = FeedbackSerializer(data, many=True)
