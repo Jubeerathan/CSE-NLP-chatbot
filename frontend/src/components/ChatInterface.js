@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useInsertionEffect } from "react";
 import {
   Row,
   Col,
@@ -26,7 +26,7 @@ import VoiceInput from "./VoiceInput";
 const ChatInterface = () => {
   // user ID should be hardcoded here.
 
-  const user_id = 2;
+  const user_id = 4;
   const userName = "hi";
 
   let [topics, setTopics] = useState([]);
@@ -116,11 +116,15 @@ const ChatInterface = () => {
   const handleUserInputSubmit = (event) => {
     event.preventDefault();
 
+    const capitalizedUserInput = toSentenceCase(userInput);
     // Create a new message object
-    const userMessage = { message: userInput, sender: "user" };
+    const userMessage = { message: capitalizedUserInput, sender: "user" };
 
     // Send the message to the backend here
-    let postObject = { conversation_title: currentTopic, question: userInput };
+    let postObject = {
+      conversation_title: currentTopic,
+      question: capitalizedUserInput,
+    };
     real_time_chat(user_id, postObject).then((data) => {
       // setAnswerFromBot(data);
 
@@ -154,24 +158,48 @@ const ChatInterface = () => {
     });
   };
 
+  //convert user input into sentence case.
+  function toSentenceCase(inputText) {
+    // Split the input text into an array of sentences using regular expressions.
+    const sentences = inputText.split(/(\. |\? |\! )/);
+
+    let result = "";
+
+    // Capitalize the first letter of each sentence and add.
+    for (let i = 0; i < sentences.length; i += 2) {
+      // Capitalize the first character of the sentence.
+      const sentence =
+        sentences[i].charAt(0).toUpperCase() + sentences[i].slice(1);
+
+      // Add it to the result string along with the appropriate punctuation.
+      result += sentence + (sentences[i + 1] || "");
+    }
+
+    return result;
+  }
+
   // handle user add a new topic to the chat.
   const handleUserInputTopicSubmit = (event) => {
     event.preventDefault();
+    // Capitalize the first letter of the userTopicInput
+    // const capitalizedTitle =
+    //   userTopicInput.charAt(0).toUpperCase() + userTopicInput.slice(1);
+    const capitalizedTitle = toSentenceCase(userTopicInput);
 
     // Check if the topic already exists
     if (
-      !topics.some((topic) => topic.conversation_title === userTopicInput)
+      !topics.some((topic) => topic.conversation_title === capitalizedTitle)
       // &&
       // !topics.some((topic) => topic.conversation_title === currentTopic)
     ) {
       // Create a new topic object
-      const newTopic = { conversation_title: userTopicInput };
+      const newTopic = { conversation_title: capitalizedTitle };
 
       // Update the topics state
       setTopics((prevTopics) => [newTopic, ...prevTopics]);
 
       // Set the current topic to the new topic
-      setCurrentTopic(userTopicInput);
+      setCurrentTopic(capitalizedTitle);
 
       // Create an initial message for the new topic
       const initialMessage = { message: "Welcome to Chatbot", sender: "bot" };
@@ -179,7 +207,7 @@ const ChatInterface = () => {
       // Update the convertMessage state to include the new topic and initial message
       setConvertMessage((prevConvertMessage) => ({
         ...prevConvertMessage,
-        [userTopicInput]: [initialMessage],
+        [capitalizedTitle]: [initialMessage],
       }));
     }
 
@@ -213,19 +241,26 @@ const ChatInterface = () => {
                         <Form.Control
                           className="me-auto"
                           type="text"
-                          placeholder="Enter Title of the Chat"
+                          placeholder="For new chat : Type the Title and click on Add >>> "
                           value={userTopicInput}
                           onKeyDown={(e) => {
                             if (e.key === "Enter") {
                               e.preventDefault(); // Prevent the default behavior of Enter (e.g., form submission)
-                              handleUserInputTopicSubmit(e);
+                              if (userTopicInput.trim() !== "") {
+                                handleUserInputTopicSubmit(e);
+                              }
                             }
                           }}
                           onChange={(e) => setUserTopicInput(e.target.value)}
+                          required
                         />
                         <Button
                           variant="primary"
-                          onClick={handleUserInputTopicSubmit}
+                          onClick={() => {
+                            if (userTopicInput.trim() !== "") {
+                              handleUserInputTopicSubmit();
+                            }
+                          }}
                           style={{ height: "40px", maxWidth: "60px" }}
                         >
                           Add
@@ -305,14 +340,22 @@ const ChatInterface = () => {
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
                             e.preventDefault(); // Prevent the default behavior of Enter (e.g., form submission)
-                            handleUserInputSubmit(e);
+                            if (userInput.trim() !== "") {
+                              // Check for a non-empty input
+                              handleUserInputSubmit(e);
+                            }
                           }
                         }}
                         onChange={(e) => setUserInput(e.target.value)}
                       />
                       <Button
                         variant="primary"
-                        onClick={handleUserInputSubmit}
+                        onClick={() => {
+                          if (userInput.trim() !== "") {
+                            // Check for a non-empty input
+                            handleUserInputSubmit();
+                          }
+                        }}
                         style={{ height: "40px", maxWidth: "100px" }}
                       >
                         Submit

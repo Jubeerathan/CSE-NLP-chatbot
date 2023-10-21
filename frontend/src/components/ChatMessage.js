@@ -21,10 +21,16 @@ const ChatMessage = ({ message, sender }) => {
       } mb-4`}
     >
       <div
-        className={`p-3 me-3 border bg-${
-          sender === "user" ? "light" : "info"
-        } text-${sender === "user" ? "dark" : "white"}`}
-        style={{ borderRadius: "15px" }}
+        className="p-3 me-3 border"
+        style={{
+          color: sender === "user" ? "#352F44" : "#03001C",
+          backgroundColor: sender === "user" ? "#FAF0E6" : "#B6EADA",
+          borderRadius: "15px",
+        }}
+        // className={`p-3 me-3 border bg-${
+        //   sender === "user" ? "light" : "secondary"
+        // } text-${sender === "user" ? "dark" : "white"}`}
+        // style={{ borderRadius: "15px" }}
       >
         <button onClick={() => handleSpeak(message)}>
           <img

@@ -133,7 +133,32 @@ function ChatHeader() {
           <Offcanvas.Title>Feedback Form</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          We kindly appreciate your valuabale feedbacks.
+          <div class="container">
+            <p style={{ textAlign: "justify", marginTop: -35 }}>
+              Welcome to our feedback form for assessing the accuracy and
+              performance of our chatbot. This form comprises two key sections:
+            </p>
+            <ol style={{ textAlign: "justify" }}>
+              <li>
+                Accuracy Feedback: Please provide feedback in the format of your
+                <b>question</b>, the chatbot's <b>response</b>, and your{" "}
+                <b>thoughts</b> on why it was inaccurate. This helps us pinpoint
+                and address specific issues.
+              </li>
+              <li>
+                Performance Feedback: Share your experiences or concerns related
+                to the chatbot's performance, such as latency and response
+                speed.
+              </li>
+            </ol>
+            <p style={{ textAlign: "justify" }}>
+              When providing feedback, be specific and constructive. You can
+              submit multiple instances of feedback. Your input is invaluable
+              for improving our chatbot. We kindly appreciate your valuable
+              feedback.
+            </p>
+          </div>
+
           <UserFeedback />
         </Offcanvas.Body>
       </Offcanvas>
