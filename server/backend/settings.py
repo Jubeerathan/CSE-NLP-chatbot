@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'database',
     'adminPanel',
     'chatbot',
+    'chat',
     'rest_framework_swagger',
     'rest_framework_jwt',
     'drf_yasg',
@@ -102,6 +103,22 @@ TEMPLATES = [
 WSGI_APPLICATION = "backend.wsgi.application"
 
 
+# # Database
+# # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# DATABASES = {
+#     "default": {
+#         # "ENGINE": 'django.db.backends.postgresql_psycopg2',
+#         # "NAME": os.getenv('DB_NAME'),
+#         # 'HOST': os.getenv('HOST'), # or the hostname where your MySQL server is running
+#         # 'PORT': '5432',
+#         # 'USER':os.getenv('USER'),
+#         # 'PASSWORD' :os.getenv('PASSWORD'), 
+#         "ENGINE": 'django.db.backends.mysql',
+#         "NAME": os.getenv('DB_NAME'),
+#         'HOST': 'localhost', # or the hostname where your MySQL server is running
+#         'PORT': '3306',
+#         'USER':os.getenv('USER'),
+#         'PASSWORD' :os.getenv('PASSWORD'),     # or the port on which your MySQL server is listening
 
 if 'test' in sys.argv:
     DATABASES = {
@@ -120,13 +137,15 @@ else:
             'HOST': os.getenv('HOST'), # or the hostname where your MySQL server is running
             'PORT': '5432',
             'USER':os.getenv('APP_USER'),
-            'PASSWORD' :os.getenv('PASSWORD'), 
-            # "ENGINE": 'django.db.backends.mysql',
+            'PASSWORD' :os.getenv('PASSWORD'),
+            # "ENGINE": 'django.db.backends.postgresql_psycopg2',
             # "NAME": os.getenv('DB_NAME'),
-            # 'HOST': 'localhost', # or the hostname where your MySQL server is running
-            # 'PORT': '3306',
-            # 'USER':os.getenv('USER'),
-            # 'PASSWORD' :os.getenv('PASSWORD'),     # or the port on which your MySQL server is listening
+            # 'HOST': os.getenv('HOST'), # or the hostname where your MySQL server is running
+            # 'PORT': '5432',
+            # 'USER':os.getenv('APP_USER'),
+            # 'PASSWORD' :os.getenv('PASSWORD'), 
+            # "ENGINE": 'django.db.backends.mysql',
+            # "NAME": os.getenv('DB_NAME'),      
         }
     }
 
