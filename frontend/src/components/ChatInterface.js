@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useInsertionEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Row,
   Col,
@@ -6,9 +6,6 @@ import {
   ListGroup,
   Form,
   Stack,
-  Nav,
-  Navbar,
-  NavDropdown,
   Container,
   Button,
 } from "react-bootstrap";
@@ -18,25 +15,25 @@ import {
   real_time_chat,
 } from "../services/ChatServices";
 import ChatMessage from "./ChatMessage";
-import uom_logo from "../assets/uom_logo.png";
-import cse_logo from "../assets/cse_logo.png";
+// import uom_logo from "../assets/uom_logo.png";
+// import cse_logo from "../assets/cse_logo.png";
 import ChatHeader from "./ChatHeader";
 import VoiceInput from "./VoiceInput";
 
 const ChatInterface = () => {
   // user ID should be hardcoded here.
 
-  const user_id = 4;
-  const userName = "hi";
+  const user_ID= 3;
+  // const userName = "hi";
 
   let [topics, setTopics] = useState([]);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    get_conversation_title(user_id).then((data) => {
+    get_conversation_title(user_ID).then((data) => {
       setTopics(data);
     });
-    get_conversation_by_user_id(user_id).then((data) => {
+    get_conversation_by_user_id(user_ID).then((data) => {
       setMessages(data);
     });
   }, []);
@@ -95,7 +92,7 @@ const ChatInterface = () => {
   //       conversation_title: currentTopic,
   //       question: userInput,
   //     };
-  //     real_time_chat(user_id, postObject).then((data) => {
+  //     real_time_chat(user_ID, postObject).then((data) => {
   //       setAnswerFromBot(data);
   //     });
 
@@ -125,7 +122,7 @@ const ChatInterface = () => {
       conversation_title: currentTopic,
       question: capitalizedUserInput,
     };
-    real_time_chat(user_id, postObject).then((data) => {
+    real_time_chat(user_ID, postObject).then((data) => {
       // setAnswerFromBot(data);
 
       // Create a new message object for the bot.

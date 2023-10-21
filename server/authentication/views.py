@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from rest_framework.response import Response
+from rest_framework import status
 from django.http.response import JsonResponse
 from django.contrib.auth.hashers import check_password
 from django.http.response import Http404
@@ -67,7 +68,15 @@ def signup(request):
             "Your Account has been created succesfully!! Please check your email to confirm your email address in order to activate your account.",
             safe=False,
         )
-
+    
+@api_view(["GET"])
+def get_user_role(request):
+    if request.user.is_authenticated:
+        user_role = request.user.user_type
+        return Response({"user_type": user_role}, status=status.HTTP_200_OK)
+    else:
+        return Response({"detail": "User is not authenticated."}, status=status.HTTP_401_UNAUTHORIZED)
+    
 def custom_authenticate(email=None, password=None):
     try:
         user = CustomUser.objects.get(email=email)

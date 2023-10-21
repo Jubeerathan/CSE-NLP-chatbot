@@ -12,7 +12,7 @@ function UserFeedback() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [apiResponse, setApiResponse] = useState(null); // To store the API response
 
-  const user_id = 1;
+  const user_ID = 3;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function UserFeedback() {
       feedback_details: feedback,
     };
 
-    submit_feedback(user_id, postObject).then((data) => {
+    submit_feedback(user_ID, postObject).then((data) => {
       console.log(data);
       setSubmitSuccess(true);
       setApiResponse(data); // Store the API response
@@ -41,7 +41,7 @@ function UserFeedback() {
   //     feedback_details: feedback,
   //   };
   //   //   // working code fro sub,it_feedback
-  //   submit_feedback(user_id, postObject).then((data) => console.log(data));
+  //   submit_feedback(user_ID, postObject).then((data) => console.log(data));
 
   return (
     <div className="m-1">
