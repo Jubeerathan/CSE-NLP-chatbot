@@ -114,9 +114,12 @@ def signin(request):
 
         user = custom_authenticate(email=email, password=password1)
         if user == 'NA':
+            print("NA")
             return Response({"error": "User account is not activated."},status=401)
         if user is not None:
+            print("before login")
             login(request, user)
+            print("After login")
             payload={
             'email':email,
             'password':password1,
@@ -124,6 +127,7 @@ def signin(request):
             'iat':datetime.datetime.utcnow()
             }
             token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
+            print(token)
             res=Response()
             res.data={ 
                 # 'jwt':token,
@@ -131,6 +135,7 @@ def signin(request):
             }
             # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
             res.set_cookie(key='jwt',value=token,httponly=True) 
+            print(res)
             return res
         else:
            return Response({"error": "Bad Credintials"},status=404)
