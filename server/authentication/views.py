@@ -120,23 +120,26 @@ def signin(request):
             print("before login")
             login(request, user)
             print("After login")
-            payload={
-            'email':email,
-            'password':password1,
-            'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
-            'iat':datetime.datetime.utcnow()
-            }
-            token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
-            print(token)
-            res=Response()
-            res.data={ 
-                # 'jwt':token,
-                'message':'Logged in Successfully!!'
-            }
-            # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
-            res.set_cookie(key='jwt',value=token,httponly=True) 
-            print(res)
-            return res
+            try:
+                payload={
+                'email':email,
+                'password':password1,
+                'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+                'iat':datetime.datetime.utcnow()
+                }
+                token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
+                print(token)
+                res=Response()
+                res.data={ 
+                    # 'jwt':token,
+                    'message':'Logged in Successfully!!'
+                }
+                # response = JsonResponse("Logged In Successfully!!", safe=False, status=200)
+                res.set_cookie(key='jwt',value=token,httponly=True) 
+                print(res)
+                return res
+            except Exception as e:
+                print(e)
         else:
            return Response({"error": "Bad Credintials"},status=404)
 
