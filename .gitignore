@@ -1,3 +1,7 @@
+#vscode
+.vscode
+# Environments
+myenv/# Logs
 # Logs
 logs
 *.log

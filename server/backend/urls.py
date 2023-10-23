@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from authentication import views
+from django.conf.urls.static import static
+from django.conf import settings
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -39,3 +44,5 @@ urlpatterns = [
     path('', include('chat.urls')),
     path('', include('chatbot.urls'))
 ]
+
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

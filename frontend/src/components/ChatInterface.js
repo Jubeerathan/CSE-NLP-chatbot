@@ -49,7 +49,9 @@ const ChatInterface = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [currentTopic, userInput]);
+
+  }, [currentTopic,convertMessage]);
+
 
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -114,6 +116,8 @@ const ChatInterface = () => {
     event.preventDefault();
 
     const capitalizedUserInput = toSentenceCase(userInput);
+    setUserInput('');
+
     // Create a new message object
     const userMessage = { message: capitalizedUserInput, sender: "user" };
 
@@ -150,7 +154,9 @@ const ChatInterface = () => {
       }
 
       // Clear the user input and bot answer
-      setUserInput("");
+
+      // setUserInput("");
+
       setAnswerFromBot("");
     });
   };
@@ -214,20 +220,33 @@ const ChatInterface = () => {
   };
 
   return (
+
+    <div style={{ minHeight: "50vh", width: "100%" }}>
+    <Container fluid className="py-1" style={{ height: "100vh", width: "100%" }}>
+      <Row className="d-flex justify-content-center" style={{ height: "100%" }}>
+        <Col md="10" lg="11" xl="12">
+          <Card id="chat1" style={{ borderRadius: "15px", height: "100%", width: "100%" }}>
+          {/* <ChatHeader /> */}
+            {/* <Card.Header
+
     <Container fluid className="py-1" style={{ height: "100vh" }}>
       <Row className="d-flex justify-content-center" style={{ height: "100%" }}>
         <Col md="10" lg="11" xl="12">
           <Card id="chat1" style={{ borderRadius: "15px", height: "100%" }}>
             <Card.Header
+
               // className="d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
               // className="border-bottom-0 align-items-center justify-content-between flex-row"
               style={{
                 borderTopLeftRadius: "15px",
                 borderTopRightRadius: "15px",
+
+                alignItems: "center",
               }}
-            >
-              <ChatHeader />
-            </Card.Header>
+            > */}
+             
+            {/* </Card.Header> */}
+=======
 
             <Card.Body>
               <Row style={{ height: "100%" }}>
@@ -369,6 +388,8 @@ const ChatInterface = () => {
         </Col>
       </Row>
     </Container>
+    </div>
+
   );
 };
 
