@@ -127,7 +127,7 @@ def signin(request):
                 'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
                 'iat':datetime.datetime.utcnow()
                 }
-                token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
+                token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256').decode('utf-8')
                 print(token)
                 res=Response()
                 res.data={ 
