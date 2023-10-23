@@ -1,23 +1,55 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import {Link, NavLink,useLocation} from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
-import "../navigation.css"
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+import "../navigation.css";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    const response = axios.get("http://127.0.0.1:8000/signout/");
+    Cookies.remove("jwt");
+    navigate("../login");
+  };
+
   return (
     <div>
-      <Navbar expand="lg" className="navbar bg-dark"   data-bs-theme="dark">
+      <Navbar expand="lg" className="navbar bg-dark" data-bs-theme="dark">
         <Container>
-          <Link className="navbar-brand" to='/adminDashboard'>Admin Dashboard</Link>
+          <Link className="navbar-brand" to="/adminDashboard">
+            Admin Dashboard
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto" >
-            <NavLink className="nav-item nav-link" to="/adminDashboard" activeClassName="active">Dashboard</NavLink> 
-            <NavLink  className="nav-item nav-link" to="/adminDashboard/knowledgebase" activeClassName="active">
-              knwoledgebase
-            </NavLink>
-          </Nav>
+            <Nav className="ml-auto">
+              <NavLink
+                className="nav-item nav-link"
+                to="/adminDashboard"
+                activeClassName="active"
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
+                className="nav-item nav-link"
+                to="/adminDashboard/knowledgebase"
+                activeClassName="active"
+                style={{ marginRight: "800px" }}
+              >
+                knwoledgebase
+              </NavLink>
+            </Nav>
+              <Button
+                variant="danger"
+                onClick={handleLogout}
+                
+              >
+                Logout
+              </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
