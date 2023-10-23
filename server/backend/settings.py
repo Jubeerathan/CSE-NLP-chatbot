@@ -37,7 +37,7 @@ SECRET_KEY = "django-insecure-#w9x!zoq*)l4h_8-g7c36q6v6j*=jc=v)&l%^0zub$f_m%$qu$
 SECRET_KEY_JWT=os.getenv('SECRET_KEY_JWT')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #         os.path.join(BASE_DIR, 'static')
