@@ -120,14 +120,17 @@ def signin(request):
             print("before login")
             login(request, user)
             print("After login")
+            payload={
+            'email':email,
+            'password':password1,
+            'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+            'iat':datetime.datetime.utcnow()
+            }
+            print ("Before Token generation")
             try:
-                payload={
-                'email':email,
-                'password':password1,
-                'exp':datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
-                'iat':datetime.datetime.utcnow()
-                }
-                token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256').decode('utf-8')
+                print (type(settings.SECRET_KEY_JWT))
+                print (type(str(settings.SECRET_KEY_JWT)))
+                token=jwt.encode(payload,settings.SECRET_KEY_JWT,algorithm='HS256')
                 print(token)
                 res=Response()
                 res.data={ 
