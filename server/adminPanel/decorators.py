@@ -7,7 +7,7 @@ from users.models import CustomUser
 
 def require_admin_permission(view_func):
     def wrapped(request, *args, **kwargs):
-        if request.headers['Authorization']:
+        if 'Authorization' in request.headers and request.headers['Authorization']:
             token = request.headers['Authorization']
         else:
             return JsonResponse({"error": "You are not authorized to access this resource"}, status=401)

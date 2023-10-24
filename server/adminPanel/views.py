@@ -14,6 +14,8 @@ import jwt,datetime
 from users.models import CustomUser
 from backend import settings
 from .decorators import require_admin_permission
+from django.views.decorators.csrf import csrf_exempt
+import os
 
 
 # Create your views here.
@@ -131,8 +133,8 @@ def get_knowledgebase_info(request, update_id):
             # Return a 404 response if the feedback does not exist
             return Response({"error": "Information Does Not Exist"},status=404)
         
-@require_admin_permission
 @api_view(('POST',))
+@csrf_exempt
 def save_file(request):
     data = request.FILES.get('file')
     with open(f"D:\Code Playground\SEP\chatbot\server\KnowledgeBaseFiles\{data}"  , 'w') as fi:

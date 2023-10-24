@@ -4,6 +4,7 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import "../knowledgebase.css";
 import { Button } from "react-bootstrap";
+import Cookies from "js-cookie";
 import {
   getKnowledgebaseInfo,
   deleteKnowledgebaseInfo,

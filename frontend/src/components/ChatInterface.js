@@ -19,6 +19,7 @@ import ChatMessage from "./ChatMessage";
 // import cse_logo from "../assets/cse_logo.png";
 import ChatHeader from "./ChatHeader";
 import VoiceInput from "./VoiceInput";
+import { getUser } from "../services/ChatServices";
 
 const ChatInterface = () => {
   // user ID should be hardcoded here.
@@ -246,7 +247,6 @@ const ChatInterface = () => {
             > */}
              
             {/* </Card.Header> */}
-=======
 
             <Card.Body>
               <Row style={{ height: "100%" }}>
