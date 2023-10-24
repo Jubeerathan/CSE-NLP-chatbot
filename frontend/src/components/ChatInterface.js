@@ -246,7 +246,6 @@ const ChatInterface = () => {
             > */}
              
             {/* </Card.Header> */}
-=======
 
             <Card.Body>
               <Row style={{ height: "100%" }}>
