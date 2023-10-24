@@ -49,7 +49,7 @@ function Signup() {
     clearForm();
     
     try {
-      const response = await axios.post('http://127.0.0.1:8000/signup/', userdetals);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/signup/`, userdetals);
       const data =response.data;
       
       if (data === "Passwords didn't matched") {

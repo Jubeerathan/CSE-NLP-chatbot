@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 export function getUserRole() {
   return axios
-    .get("http://localhost:8000/userRole/", {
+    .get(`${process.env.REACT_APP_BACKEND}/userRole/`, {
       // withCredentials: true,
       headers: {
         Authorization: Cookies.get('jwt') //the token is a variable which holds the token

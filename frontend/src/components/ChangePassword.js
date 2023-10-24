@@ -31,7 +31,7 @@ function ChangePassword() {
     event.preventDefault();
     try {
        // Save user details to local storage
-      const response = await axios.put('http://127.0.0.1:8000/changepassword/', { ...userdetails, email: Email });
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND}/changepassword/`, { ...userdetails, email: Email });
       const data = response.data;
       console.log(data);
       if (data === "Passwords didn't matched") {

@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 export function getUser() {
   return axios
-    .get("http://localhost:8000/user_ID", {
+    .get(`${process.env.REACT_APP_BACKEND}/user_ID`, {
       headers: {
         Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
       },
@@ -14,7 +14,8 @@ export function getUser() {
 export async function get_conversation_title(user_ID) {
   try {
     const response = await axios.get(
-      `http://127.0.0.1:8000/chat/${user_ID}/titles/`
+      `${process.env.REACT_APP_BACKEND}/chat/${user_ID}/titles/`
+      // `http://127.0.0.1:8000/chat/${user_ID}/titles/`
     );
     return response.data;
   } catch (error) {
@@ -26,7 +27,7 @@ export async function get_conversation_title(user_ID) {
 export async function get_conversation_by_user_id(user_ID) {
   try {
     const response = await axios.get(
-      `http://127.0.0.1:8000/chat/${user_ID}/return_conversation/`,{
+      `${process.env.REACT_APP_BACKEND}/chat/${user_ID}/return_conversation/`,{
         headers: {
           Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
         },
@@ -42,7 +43,7 @@ export async function get_conversation_by_user_id(user_ID) {
 export async function real_time_chat(user_ID, postObject) {
   try {
     const response = await axios.post(
-      `http://127.0.0.1:8000/chat/${user_ID}/real_time/`,
+      `${process.env.REACT_APP_BACKEND}/chat/${user_ID}/real_time/`,
       postObject,
       {
         headers: {
@@ -63,7 +64,7 @@ export async function real_time_chat(user_ID, postObject) {
 export async function submit_feedback(user_ID, postObject) {
   try {
     const response = await axios.post(
-      `http://127.0.0.1:8000/user_feedback/${user_ID}/submit_feedback/`,
+      `${process.env.REACT_APP_BACKEND}/user_feedback/${user_ID}/submit_feedback/`,
       postObject,
       {
         headers: {

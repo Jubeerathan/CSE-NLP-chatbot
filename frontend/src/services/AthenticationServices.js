@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 
 export function addUser(user){
 
-    axios.post('http://127.0.0.1:8000/signup/',user)
+    axios.post(`${process.env.REACT_APP_BACKEND}`,user)
     .then((response) => {
         
     })

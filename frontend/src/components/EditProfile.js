@@ -80,7 +80,7 @@ function EditProfile() {
     event.preventDefault();
     try {
       const response = await axios.put(
-        "http://127.0.0.1:8000/editprofile/",
+        `${process.env.REACT_APP_BACKEND}/editprofile/`,
         userdetails
       );
       const data = response.data;

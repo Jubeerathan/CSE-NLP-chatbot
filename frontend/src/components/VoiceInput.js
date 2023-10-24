@@ -21,7 +21,7 @@ const VoiceInput = ({ userInput, setUserInput }) => {
   useEffect(() => {
     // Fetch the Azure Cognitive Services token from backend
     axios
-      .get("http://127.0.0.1:8000/generate_azure_token/")
+      .get(`${process.env.REACT_APP_BACKEND}/generate_azure_token/`)
       .then((response) => {
         setAzureToken(response.data.token);
 

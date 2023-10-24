@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 export function getfeedbacks() {
   return axios
-    .get("http://localhost:8000/adminDashboard/", {
+    .get(`${process.env.REACT_APP_BACKEND}/adminDashboard/`, {
       headers: {
         Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
       },
@@ -19,7 +19,7 @@ export function getfeedbacks() {
 
 export function get_userId() {
   return axios
-    .get(`http://localhost:8000/token/`, {
+    .get(`${process.env.REACT_APP_BACKEND}/token/`, {
       headers: {
         Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
       },
@@ -29,7 +29,7 @@ export function get_userId() {
 
 export function get_feedbacks_by_feedback_type(feedback_type) {
   return axios
-    .get(`http://localhost:8000/adminDashboard/${feedback_type}/`, {
+    .get(`${process.env.REACT_APP_BACKEND}/adminDashboard/${feedback_type}/`, {
       headers: {
         Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
       },
@@ -39,7 +39,7 @@ export function get_feedbacks_by_feedback_type(feedback_type) {
 
 export function deleteFeedback(feedback_id) {
   return axios
-    .delete(`http://localhost:8000/adminDashboard/${feedback_id}`, {
+    .delete(`${process.env.REACT_APP_BACKEND}/adminDashboard/${feedback_id}`, {
       headers: {
         Authorization: Cookies.get("jwt"), //the token is a variable which holds the token
       },

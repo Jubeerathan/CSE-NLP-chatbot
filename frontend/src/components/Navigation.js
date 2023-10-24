@@ -12,7 +12,7 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    const response = axios.get("http://127.0.0.1:8000/signout/");
+    const response = axios.get(`${process.env.REACT_APP_BACKEND}/signout/`);
     Cookies.remove("jwt");
     navigate("../login");
   };

@@ -71,7 +71,7 @@ const Knowledgebase = () => {
       formData.append("file", blob, fileName);
 
       // Replace 'your-server-endpoint' with the actual backend API endpoint
-      fetch("http://127.0.0.1:8000/savefile/", {
+      fetch(`${process.env.REACT_APP_BACKEND}/savefile/`, {
         method: "POST", // You can use 'PUT' or 'PATCH' depending on your API
         body: formData,
       })

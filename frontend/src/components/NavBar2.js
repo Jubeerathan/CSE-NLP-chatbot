@@ -41,7 +41,7 @@ const NavBar2 = () => {
     // localStorage.removeItem('userdetails');
 
     // Redirect to the logout URL on the server-side
-    const response = axios.get('http://127.0.0.1:8000/signout/');
+    const response = axios.get(`${process.env.REACT_APP_BACKEND}/signout/`);
     Cookies.remove('jwt')
     navigate('../login');
   };

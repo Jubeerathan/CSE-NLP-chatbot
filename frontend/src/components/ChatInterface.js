@@ -40,7 +40,7 @@ const ChatInterface = () => {
   }, []);
 
   const [currentTopic, setCurrentTopic] = useState(
-    topics.length > 0 ? topics[0].conversation_title : []
+    topics && topics.length > 0 ? topics[0].conversation_title : []
   );
   const [userInput, setUserInput] = useState("");
   const [userTopicInput, setUserTopicInput] = useState("");
@@ -285,7 +285,7 @@ const ChatInterface = () => {
                       </Stack>
                     </Row>
                     <ListGroup variant="flush">
-                      {topics.length >= 0 ? (
+                      {topics && topics.length >= 0 ? (
                         topics.map((topic) => (
                           <ListGroup.Item
                             key={topic.conversation_title}
