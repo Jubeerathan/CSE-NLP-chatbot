@@ -1,13 +1,11 @@
 import react from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { submit_feedback } from "../services/ChatServices";
-import { Form, Button, Col, Row, Alert } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import "./UserFeedback.css";
 
 function UserFeedback() {
   const [feedback, setFeedback] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [rating, setRating] = useState(""); // To store the selected option
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [apiResponse, setApiResponse] = useState(null); // To store the API response
@@ -29,8 +27,6 @@ function UserFeedback() {
 
       // Clear the form fields
       setFeedback("");
-      setName("");
-      setEmail("");
       setRating("");
     });
   };

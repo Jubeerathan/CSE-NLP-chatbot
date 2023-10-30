@@ -1,39 +1,24 @@
 import React from "react";
 import { useState } from "react";
-import {
-  Nav,
-  Navbar,
-  NavDropdown,
-  Container,
-  Button,
-  Row,
-  Col,
-  Figure,
-  Offcanvas,
-} from "react-bootstrap";
+import { Button, Offcanvas } from "react-bootstrap";
 // import "./header.css";
-import uom_logo from "../assets/uom_logo.png";
-import cse_logo from "../assets/cse_logo.png";
-import user from "../assets/user.svg";
 import UserFeedback from "./UserFeedback";
 
 // "#252830"
 
 function ChatHeader() {
-  let userName = "user2";
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <div >
+    <div>
       <Button
         variant="light"
         href="#Feedbacks"
         style={{ margin: "2px" }}
-        onClick={handleShow}   
+        onClick={handleShow}
       >
         Feedbacks
       </Button>

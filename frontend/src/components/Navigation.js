@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
@@ -43,13 +43,9 @@ const Navigation = () => {
                 knwoledgebase
               </NavLink>
             </Nav>
-              <Button
-                variant="danger"
-                onClick={handleLogout}
-                
-              >
-                Logout
-              </Button>
+            <Button variant="danger" onClick={handleLogout}>
+              Logout
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>

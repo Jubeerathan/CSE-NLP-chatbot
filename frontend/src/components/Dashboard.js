@@ -1,8 +1,6 @@
-import axios from "axios";
-
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { FaCodeBranch, FaEdit } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { FiBookOpen } from "react-icons/fi";
 import { Row, Col } from "react-bootstrap";
 import { Button, ButtonToolbar } from "react-bootstrap";
@@ -15,7 +13,6 @@ import {
   get_feedbacks_by_feedback_type,
   deleteFeedback,
 } from "../services/FeedbackServices";
-import { useRevalidator } from "react-router-dom";
 
 const Feedbacks = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -25,8 +22,7 @@ const Feedbacks = () => {
   const [UpdateModalShow, setUpdateModalShow] = useState(false);
   const [feedbackType, setFeedbackType] = useState("All");
   const [isUpdated, setIsUpdated] = useState(false);
-  const [error, setError] = useState(null); 
-
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -34,17 +30,19 @@ const Feedbacks = () => {
       return;
     }
 
-    getfeedbacks().then((data) => {
-      if (mounted) {
-        if (data.status === false) {
-          setError(data.message);
-        } else {
-          setFeedbacks(data);
+    getfeedbacks()
+      .then((data) => {
+        if (mounted) {
+          if (data.status === false) {
+            setError(data.message);
+          } else {
+            setFeedbacks(data);
+          }
         }
-      }
-    }).catch((error) => {
-      setError("An error occurred while fetching feedbacks.");
-    });
+      })
+      .catch((error) => {
+        setError("An error occurred while fetching feedbacks.");
+      });
     return () => {
       mounted = false;
       setIsUpdated(false);
@@ -107,7 +105,7 @@ const Feedbacks = () => {
           </div>
         ) : ( */}
 
-         {feedbacks.length === 0 ? (
+        {feedbacks.length === 0 ? (
           <h2 className="text-center" style={{ color: "white" }}>
             No feedbacks
           </h2>
@@ -162,9 +160,7 @@ const Feedbacks = () => {
               </thead>
               <tbody>
                 {feedbacks.map((feedback) => (
-                  <tr
-                    key={feedback.feedback_id}
-                  >
+                  <tr key={feedback.feedback_id}>
                     <td>{feedback.feedback_details}</td>
                     <td>{feedback.feedback_type}</td>
                     <td>
@@ -216,7 +212,7 @@ const Feedbacks = () => {
               </tbody>
             </Table>
           </div>
-        ) }
+        )}
       </div>
     </div>
   );

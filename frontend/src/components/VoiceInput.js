@@ -38,7 +38,7 @@ const VoiceInput = ({ userInput, setUserInput }) => {
       .catch((error) => {
         console.error("Error fetching Azure token:", error);
       });
-  }, []);
+  }, [azureToken]);
 
   useEffect(() => {
     // Update userInput when a new transcript is received
