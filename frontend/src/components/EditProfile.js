@@ -74,7 +74,7 @@ function EditProfile() {
       setuserdetails({ ...userdetails, email: savedUserEmail });
       console.log(userdetails.email);
     }
-  });
+  }, [userdetails]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

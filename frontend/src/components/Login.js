@@ -88,7 +88,7 @@ const Login = () => {
               margin: "0 auto",
             }}
             src={logo}
-            alt="Your Image Description"
+            alt="csebot_logo"
           />
         </h2>
         <form onSubmit={handleLogin}>

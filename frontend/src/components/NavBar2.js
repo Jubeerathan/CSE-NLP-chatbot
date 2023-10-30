@@ -31,7 +31,7 @@ const NavBar2 = () => {
       setAvatar(savedUserDetails1.avatar);
       console.log(Avatar);
     }
-  });
+  }, [Avatar]);
 
   // Logout function
   const handleLogout = () => {
