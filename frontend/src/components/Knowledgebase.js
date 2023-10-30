@@ -16,7 +16,7 @@ const Knowledgebase = () => {
   const [content, setContent] = useState("");
   const [fileName, setFileName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -76,7 +76,7 @@ const Knowledgebase = () => {
       })
         .then((response) => {
           if (response.ok) {
-            setIsSaved(true);
+            // setIsSaved(true);
             alert("File saved successfully");
           } else {
             // Handle errors, display an error message, etc.

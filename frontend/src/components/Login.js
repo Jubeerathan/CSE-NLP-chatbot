@@ -88,6 +88,7 @@ const Login = () => {
               margin: "0 auto",
             }}
             src={logo}
+            alt="Your Image Description"
           />
         </h2>
         <form onSubmit={handleLogin}>

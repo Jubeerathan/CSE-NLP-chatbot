@@ -20,7 +20,7 @@ function Signup() {
   const [showPTSAlert, setShowPTSAlert] = useState(false);
   const [showUEEAlert, setShowUEEAlert] = useState(false);
   const [showAccountCreatedAlert, setShowAccountCreatedAlert] = useState(false);
-  const [showRegistrationFailed, setShowRegistrationFailed] = useState(false);
+  // const [showRegistrationFailed, console.log] = useState(false);
   const [formValid, setFormValid] = useState(true);
 
   useEffect(() => {
@@ -34,7 +34,12 @@ function Signup() {
     } else {
       setFormValid(true);
     }
-  }, [userdetals.username, userdetals.pword, userdetals.confirmPword]);
+  }, [
+    userdetals.username,
+    userdetals.pword,
+    userdetals.confirmPword,
+    userdetals.email,
+  ]);
 
   const clearForm = () => {
     setuserdetails({
@@ -68,7 +73,7 @@ function Signup() {
       }
     } catch (error) {
       console.error(error);
-      setShowRegistrationFailed(true);
+      console.log(true);
     }
   };
 
@@ -97,6 +102,7 @@ function Signup() {
                 margin: "0 auto",
               }}
               src={logo}
+              alt="logo"
             />
           </h2>
           <form onSubmit={handleSubmit}>

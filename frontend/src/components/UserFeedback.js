@@ -1,4 +1,3 @@
-import react from "react";
 import { useState } from "react";
 import { submit_feedback } from "../services/ChatServices";
 import { Form, Button, Alert } from "react-bootstrap";

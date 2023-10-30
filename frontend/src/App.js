@@ -34,7 +34,7 @@ const SubAPP = () => {
       .catch((error) => {
         console.error("Error fetching user role:", error);
       });
-  }, []);
+  });
 
   // Conditionally render the NavBar based on the current route
   const shouldShowNavBar1 =

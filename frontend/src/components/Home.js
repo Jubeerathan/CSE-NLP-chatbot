@@ -98,7 +98,7 @@ const Home = () => {
               <div className="mt-10 flex flex-col justify-center ">
                 <div className="py-3 text-xs" style={{ color: "white" }}>
                   <a
-                    href="#"
+                    href="https://docs.google.com/document/d/1wQ6huj_4XyoGNKA_jMJyaz8-Bqf5nwtU8y6yvgJXj_8/edit?usp=sharing"
                     target="_blank"
                     className="mx-3 text-white-500"
                     rel="noreferrer"
@@ -107,7 +107,7 @@ const Home = () => {
                   </a>
                   <span className="text-gray-600">|</span>
                   <a
-                    href="#"
+                    href="https://docs.google.com/document/d/1EGEcHB0BZfIzsamnSBBHPmPfRcSNevINdCA7ehUl7Fc/edit?usp=sharing"
                     target="_blank"
                     className="mx-3 text-white-500"
                     rel="noreferrer"

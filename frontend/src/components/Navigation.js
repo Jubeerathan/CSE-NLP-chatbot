@@ -13,6 +13,7 @@ const Navigation = () => {
 
   const handleLogout = () => {
     const response = axios.get(`${process.env.REACT_APP_BACKEND}/signout/`);
+    console.log(response);
     Cookies.remove("jwt");
     navigate("../login");
   };

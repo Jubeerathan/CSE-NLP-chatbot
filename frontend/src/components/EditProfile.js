@@ -74,7 +74,7 @@ function EditProfile() {
       setuserdetails({ ...userdetails, email: savedUserEmail });
       console.log(userdetails.email);
     }
-  }, []);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -147,7 +147,7 @@ function EditProfile() {
                     <div className="content">
                       <div className="card">
                         <div className="firstinfo">
-                          <img src={usercard.avatar} />
+                          <img src={usercard.avatar} alt="User Avatar" />
                           <div className="profileinfo">
                             <h1>
                               {usercard.firstname + " " + usercard.lastname}
