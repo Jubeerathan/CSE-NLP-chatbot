@@ -76,15 +76,15 @@ const SubAPP = () => {
       <Routes>
         {/* {userRole === "admin" ?  <Route exact path="/" element={<Feedbacks />} /> : <Route exact path="/" element={<Home/>} />} */}
         <Route exact path="/" element={<Home />} />
-        <Route exact path="mailsuccess" element={<MailSuccess />} />
-        <Route exact path="signup" element={<Signup />} />
-        <Route exact path="login" element={<Login />} />
+        <Route exact path="/mailsuccess" element={<MailSuccess />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/login" element={<Login />} />
         {/* <Route exact path="chatbot" element={<Login />} /> */}
-        <Route exact path="changepassword" element={<ChangePassword />} />
+        <Route exact path="/changepassword" element={<ChangePassword />} />
         {/* <Route exact path="/editprofile/:Email" element={<EditProfile />} />  */}
-        <Route exact path="editprofile" element={<EditProfile />} />
-        <Route exact path="addfeedback" element={<ChatHeader />} />
-        <Route path="bot" element={<ChatPage />} />
+        <Route exact path="/editprofile" element={<EditProfile />} />
+        <Route exact path="/addfeedback" element={<ChatHeader />} />
+        <Route path="/bot" element={<ChatPage />} />
         <Route
           path="/adminDashboard/knowledgebase"
           element={<Knowledgebase />}
