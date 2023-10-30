@@ -81,7 +81,7 @@ def signup(request):
 @api_view(["GET"])
 def get_user_role(request):
     print("inside user role")
-    if request.headers['Authorization']:
+    if 'Authorization' in request.headers and request.headers['Authorization']:
         token = request.headers['Authorization']
         print(token)
     else:
